@@ -1,11 +1,17 @@
 import React from "react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import "./auth.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,11 +19,36 @@ const Login = () => {
       email,
       password,
     };
-    axios.get("http://localhost:8000/sanctum/csrf-cookie").then((response) => {
+    axios.get("/sanctum/csrf-cookie").then((response) => {
       axios
-        .post("http://localhost:8000/api/login", data)
+        .post("/api/login", data)
         .then((res) => {
-          console.log(res);
+          if (res.data.status === 200) {
+            // localStorage.setItem("auth_token", res.data.token);
+            Cookies.set("token", res.data.token);
+            localStorage.setItem("user_name", res.data.username);
+            localStorage.setItem("auth_id", res.data.user_id);
+            Swal.fire({
+              icon: "success",
+              title: "تبریک میگم",
+              text: res.data.message,
+              showConfirmButton: true,
+              confirmButtonText: "تایید",
+              timer: 5000,
+            });
+            navigate("/");
+          } else if (res.data.status === 401) {
+            Swal.fire({
+              icon: "warning",
+              title: "مشکلی پیش آمده",
+              text: res.data.message,
+              showConfirmButton: true,
+              confirmButtonText: "تایید",
+              timer: 5000,
+            });
+          } else {
+            setError(res.data.validation_errors);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -44,6 +75,7 @@ const Login = () => {
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {error && <small className="text-danger">{error.email}</small>}
               </div>
               <div className="form-group">
                 <label htmlFor="" className="text-white mb-2">
@@ -55,6 +87,9 @@ const Login = () => {
                   name="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                {error && (
+                  <small className="text-danger">{error.password}</small>
+                )}
               </div>
               <div className="formgroup mt-4">
                 <button type="submit" className="btn btn-success w-100">

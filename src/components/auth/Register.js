@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./auth.css";
 
@@ -9,6 +10,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,9 +21,12 @@ const Register = () => {
     };
 
     await axios
-      .post("http://127.0.0.1:8000/api/register", data)
+      .post("/api/register", data)
       .then((res) => {
         if (res.data.status === 200) {
+          localStorage.setItem("auth_token", res.data.token);
+          localStorage.setItem("user_name", res.data.username);
+          localStorage.setItem("auth_id", res.data.user_id);
           Swal.fire({
             icon: "success",
             title: "تبریک میگم",
@@ -30,6 +35,7 @@ const Register = () => {
             confirmButtonText: "تایید",
             timer: 5000,
           });
+          navigate("/");
         } else {
           setError(res.data.validation_errors);
         }
