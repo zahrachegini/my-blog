@@ -18,31 +18,65 @@ const Navbar = () => {
       <div className="container">
         <div className="collapse navbar-collapse" id="navbarSupport">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink to="/" className="nav-link" aria-current="page">
-                خانه
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/login" className="nav-link">
-                ورود
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/register" className="nav-link">
-                ثبت نام
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/blog" className="nav-link">
-                ارسال بلاگ
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <span to="/nav" className="nav-link" onClick={logOut}>
-                خروج
-              </span>
-            </li>
+            {localStorage.getItem("user_name") ? (
+              <>
+                {" "}
+                <li className="nav-item">
+                  <NavLink to="/" className="nav-link" aria-current="page">
+                    خانه
+                  </NavLink>
+                </li>
+                {/* <li className="nav-item">
+                  <NavLink to="/blog" className="nav-link">
+                    ارسال بلاگ
+                  </NavLink>
+                </li> */}
+                <li className="nav-item">
+                  <NavLink to="/create" className="nav-link">
+                    ایجاد بلاگ
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <span to="/nav" className="nav-link" onClick={logOut}>
+                    خروج
+                  </span>
+                </li>
+              </>
+            ) : (
+              <>
+                {" "}
+                <li className="nav-item">
+                  <NavLink to="/" className="nav-link" aria-current="page">
+                    خانه
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/login" className="nav-link">
+                    ورود
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/register" className="nav-link">
+                    ثبت نام
+                  </NavLink>
+                </li>
+                {/* <li className="nav-item">
+                  <NavLink to="/blog" className="nav-link">
+                    ارسال بلاگ
+                  </NavLink>
+                </li> */}
+                <li className="nav-item">
+                  <NavLink to="/create" className="nav-link">
+                    ایجاد بلاگ
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <span to="/nav" className="nav-link" onClick={logOut}>
+                    خروج
+                  </span>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <NavLink className="navbar-brand" to="/">
