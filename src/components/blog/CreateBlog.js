@@ -13,35 +13,34 @@ const CreateBlog = () => {
   const user_id = localStorage.getItem("auth_id");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("user_id", user_id);
-    await axios
-      .post("/api/blog", formData)
-      .then((res) => {
-        if (res.data === 200) {
-          Swal.fire({
-            icon: "success",
-            title: "تبریک میگم",
-            text: res.data.message,
-            showConfirmButton: true,
-            confirmButtonText: "تایید",
-            timer: 5000,
-          });
-          navigate("/");
-        } else {
-          setError(res.data.errors);
-        }
+   const handleSubmit = async(e)=>{
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("user_id", user_id);
+      await axios.post("/api/blog", formData)
+      .then((res)=>{
+          if(res.data.status === 200){
+               Swal.fire({
+                    icon: "success",
+                    title: "تبریک میگم!",
+                    text: res.data.message,
+                    showConfirmButton: true,
+                    confirmButtonText: "تایید!",
+                    timer: 5000,
+                  });
+                  navigate("/")
+          }else{
+               setError(res.data.errors)
+          }
+      }).catch((err)=> {
+           console.log(err);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+ }
 
+ 
   return (
     <div className="blog-post">
       <div className="container py-5 min-vh-100 d-flex flex-column justify-content-center">

@@ -5,7 +5,8 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import axios from "axios";
 import CreateBlog from "./components/blog/CreateBlog";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
+import BlogDetails from "./pages/blogDetail/BlogDetails";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/create" element={<CreateBlog />} />
+        <Route path="/blogdetails/:id" element={<BlogDetails />} />
       </Routes>
     </BrowserRouter>
   );
