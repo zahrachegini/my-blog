@@ -9,7 +9,7 @@ import Home from "./pages/home/Home";
 import BlogDetails from "./pages/blogDetail/BlogDetails";
 import MyBlog from "./pages/myBlog/MyBlog";
 import EditBlog from "./pages/editBlog/EditBlog";
-import Search from "./components/search/Search";
+import Search from "./pages/search/Search";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.headers.post["Content-Type"] = "application/json";

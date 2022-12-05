@@ -5,7 +5,6 @@ import "./search.css";
 
 const Search = () => {
   const [data, setData] = useState("");
-const [visible, setVisible] = useState()
 
   async function searchBlog(key) {
     await axios.get("/api/search/" + key).then((res) => {
@@ -28,7 +27,7 @@ const [visible, setVisible] = useState()
         <div className="col-lg-12 mt-5">
           <div className="row">
             {data &&
-              data.slice(0, 3).map((item) => {
+              data.map((item) => {
                 return (
                   <div className="col-lg-4 col-md-4" key={item.id}>
                     <div className="blog-search shadow">
