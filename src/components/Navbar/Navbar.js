@@ -26,14 +26,19 @@ const Navbar = () => {
                     خانه
                   </NavLink>
                 </li>
-                {/* <li className="nav-item">
-                  <NavLink to="/blog" className="nav-link">
-                    ارسال بلاگ
+                <li className="nav-item">
+                  <NavLink to="/search" className="nav-link" aria-current="page">
+                    جستجو
                   </NavLink>
-                </li> */}
+                </li>
                 <li className="nav-item">
                   <NavLink to="/create" className="nav-link">
                     ایجاد بلاگ
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/blog/myblog" className="nav-link">
+                    پست های شما
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -60,11 +65,6 @@ const Navbar = () => {
                     ثبت نام
                   </NavLink>
                 </li>
-                {/* <li className="nav-item">
-                  <NavLink to="/blog" className="nav-link">
-                    ارسال بلاگ
-                  </NavLink>
-                </li> */}
                 <li className="nav-item">
                   <NavLink to="/create" className="nav-link">
                     ایجاد بلاگ
